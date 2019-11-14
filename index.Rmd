@@ -21,6 +21,7 @@ But let's also look at the total number of people killed (not separated by seat)
 
 ```{r}
 driving$totalKilled <- driving$DriversKilled+driving$front+driving$rear
+print(driving)
 ```
 
 Finally, let's explore what variables help us predict the number of deaths due to car accidents.

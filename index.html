@@ -1646,7 +1646,22 @@ library(&quot;caret&quot;)
 driving &lt;- as_tibble(Seatbelts)
 driving$law &lt;- as.logical(driving$law)</code></pre>
 <p>But let’s also look at the total number of people killed (not separated by seat).</p>
-<pre class="r"><code>driving$totalKilled &lt;- driving$DriversKilled+driving$front+driving$rear</code></pre>
+<pre class="r"><code>driving$totalKilled &lt;- driving$DriversKilled+driving$front+driving$rear
+print(driving)</code></pre>
+<pre><code>## # A tibble: 192 x 9
+##    DriversKilled drivers front  rear   kms PetrolPrice VanKilled law  
+##            &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;lgl&gt;
+##  1           107    1687   867   269  9059       0.103        12 FALSE
+##  2            97    1508   825   265  7685       0.102         6 FALSE
+##  3           102    1507   806   319  9963       0.102        12 FALSE
+##  4            87    1385   814   407 10955       0.101         8 FALSE
+##  5           119    1632   991   454 11823       0.101        10 FALSE
+##  6           106    1511   945   427 12391       0.101        13 FALSE
+##  7           110    1559  1004   522 13460       0.104        11 FALSE
+##  8           106    1630  1091   536 14055       0.104         6 FALSE
+##  9           107    1579   958   405 12106       0.104        10 FALSE
+## 10           134    1653   850   437 11372       0.103        16 FALSE
+## # … with 182 more rows, and 1 more variable: totalKilled &lt;dbl&gt;</code></pre>
 <p>Finally, let’s explore what variables help us predict the number of deaths due to car accidents.</p>
 <pre class="r"><code>driving_model &lt;- lm(data=driving, formula=totalKilled~drivers+kms+PetrolPrice+law)
 summary(driving_model)</code></pre>
