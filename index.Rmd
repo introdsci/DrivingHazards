@@ -1,0 +1,30 @@
+---
+title: "Driving Hazards"
+output:
+  html_document:
+    df_print: paged
+---
+
+Let's look into the `Seatbelts` built-in data set to explore information about driving hazards. First, I am loading the data set into a table and converting the `law` variable into a logical type (`TRUE` or `FALSE`) instead of a numeric (`0` or `1`) value.
+
+```{r}
+library("dplyr")
+library("tidyr")
+library("caret")
+
+driving <- as_tibble(Seatbelts)
+driving$law <- as.logical(driving$law)
+```
+
+But let's also look at the total number of people killed (not separated by seat).
+
+```{r}
+driving$totalKilled <- driving$DriversKilled+driving$front+driving$rear
+```
+
+Finally, let's explore what variables help us predict the number of deaths due to car accidents.
+
+```{r}
+driving_model <- lm(data=driving, formula=totalKilled~drivers+kms+PetrolPrice+law)
+summary(driving_model)
+```
