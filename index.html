@@ -1637,21 +1637,13 @@ summary {
 </div>
 
 
+<p><a href="https://github.com/introdsci/DrivingHazards">Code repository</a> and <a href="https://introdsci.github.io/DrivingHazards/">Published copy</a></p>
 <p>Let’s look into the <code>Seatbelts</code> built-in data set to explore information about driving hazards. First, I am loading the data set into a table and converting the <code>law</code> variable into a logical type (<code>TRUE</code> or <code>FALSE</code>) instead of a numeric (<code>0</code> or <code>1</code>) value.</p>
-<pre class="r"><code>library(&quot;dplyr&quot;)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(&quot;tidyr&quot;)
-library(&quot;caret&quot;)</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre class="r"><code>driving &lt;- as_tibble(Seatbelts)
+<pre class="r"><code>library(&quot;dplyr&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;caret&quot;)
+
+driving &lt;- as_tibble(Seatbelts)
 driving$law &lt;- as.logical(driving$law)</code></pre>
 <p>But let’s also look at the total number of people killed (not separated by seat).</p>
 <pre class="r"><code>driving$totalKilled &lt;- driving$DriversKilled+driving$front+driving$rear</code></pre>
@@ -1680,6 +1672,7 @@ summary(driving_model)</code></pre>
 ## Residual standard error: 148.8 on 187 degrees of freedom
 ## Multiple R-squared:  0.6616, Adjusted R-squared:  0.6543 
 ## F-statistic: 91.39 on 4 and 187 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Note that the (logical) <code>law</code> variable has automatically been created as a <em>dummy variable</em> and incorporated in the regression equation as `<strong>lawTRUE</strong>. In other words, whether or not there is a law on seatbelts in place contributes to the prediction (<em>p&lt;.01</em>) of how many auto fatalities there are (<em>reducing</em> the predicted deaths by about <strong>128.5</strong>).</p>
 
 
 

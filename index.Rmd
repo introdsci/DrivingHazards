@@ -4,10 +4,11 @@ output:
   html_document:
     df_print: paged
 ---
+[Code repository](https://github.com/introdsci/DrivingHazards) and [Published copy](https://introdsci.github.io/DrivingHazards/)
 
 Let's look into the `Seatbelts` built-in data set to explore information about driving hazards. First, I am loading the data set into a table and converting the `law` variable into a logical type (`TRUE` or `FALSE`) instead of a numeric (`0` or `1`) value.
 
-```{r}
+```{r echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
 library("dplyr")
 library("tidyr")
 library("caret")
@@ -28,3 +29,5 @@ Finally, let's explore what variables help us predict the number of deaths due t
 driving_model <- lm(data=driving, formula=totalKilled~drivers+kms+PetrolPrice+law)
 summary(driving_model)
 ```
+
+Note that the (logical) `law` variable has automatically been created as a *dummy variable* and incorporated in the regression equation as `**lawTRUE**. In other words, whether or not there is a law on seatbelts in place contributes to the prediction (*p<.01*) of how many auto fatalities there are (*reducing* the predicted deaths by about **128.5**).
