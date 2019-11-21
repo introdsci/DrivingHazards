@@ -32,3 +32,17 @@ summary(driving_model)
 ```
 
 Note that the (logical) `law` variable has automatically been created as a *dummy variable* and incorporated in the regression equation as `**lawTRUE**. In other words, whether or not there is a law on seatbelts in place contributes to the prediction (*p<.01*) of how many auto fatalities there are (*reducing* the predicted deaths by about **128.5**).
+
+```{r}
+library(caret)
+ 
+sampling = createDataPartition(driving$totalKilled, p = 0.70, list = FALSE) # p to tell 70% split
+train = driving[sampling, ]
+test = driving[-sampling, ]
+predict_deaths_model <- lm(data=train, formula = totalKilled ~ drivers + kms + PetrolPrice + law)
+death_predictions <- predict(predict_deaths_model,test)
+ggplot(data=test, aes(x=death_predictions,y=test$totalKilled )) + geom_point()
+R2(death_predictions,test$totalKilled)
+MAE(death_predictions,test$totalKilled)
+RMSE(death_predictions,test$totalKilled)
+```
